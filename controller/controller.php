@@ -11,6 +11,7 @@ class Controller{
 
     if (isset($_SESSION['admin'])) {
       include_once('view/templates/head.php');
+      include_once('view/templates/header.php');
       include_once('view/cpanel.php');
       include_once('view/templates/foot.php');
     }else {
@@ -26,15 +27,17 @@ class Controller{
   }
 
   function login(){
-
     // echo "<pre>";
-    // print_r($_POST);
+    // print_r($_SESSION);
     // echo "</pre>";
+
+
     $user = $_POST['user'];
     $pass = $_POST['pass'];
     $res = $this->obj->userVerify($user, $pass);
-    if ($res->num_rows) {
-      $_SESSION['admin']='active';
+    if ($res) {
+
+      $_SESSION['admin']=$res;
       header('location:?w=cpanel');
     }else {
       header('location:?');
@@ -44,11 +47,25 @@ class Controller{
   function cpanel(){
     if (isset($_SESSION['admin'])) {
       include_once('view/templates/head.php');
+      include_once('view/templates/header.php');
       include_once('view/cpanel.php');
       include_once('view/templates/foot.php');
     }else {
       header('location:?');
     }
+  }
+
+  function listCli(){
+    if (isset($_SESSION['admin'])) {
+      $res = $this->obj->listClients();
+      include_once('view/templates/head.php');
+      include_once('view/templates/header.php');
+      include_once('view/clients.php');
+      include_once('view/templates/foot.php');
+    }else {
+      header('location:?');
+    }
+
   }
 
 }

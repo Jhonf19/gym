@@ -1,8 +1,8 @@
 <?php
 require_once('controller/controller.php');
-echo "<pre>";
-print_r($_SESSION);
-echo "</pre>";
+// echo "<pre>";
+// print_r($_SESSION);
+// echo "</pre>";
 
   $controller = new Controller();
 
